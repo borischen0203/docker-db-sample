@@ -13,9 +13,6 @@ brew install make
 
 #### Setup your configuration:
 Below is a java `application.properties` sample
-- localhost port `3306` should be same as `ports` in docker-compose.yaml
-- `testDB` is database name, it should be same as `MYSQL_DATABASE`  in docker-compose.yaml
-- `password` is tha password value, it should be same as `MYSQL_ROOT_PASSWORD` in docker-compose.yaml
 ```bash
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.datasource.url=jdbc:mysql://localhost:3306/testDB
@@ -23,6 +20,25 @@ spring.datasource.username=root
 spring.datasource.password=password
 spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
 spring.jpa.hibernate.ddl-auto=update
+```
+- `localhost:3306`  should be same as `ports` in docker-compose.yaml
+- `testDB` is database name, it should be same as `MYSQL_DATABASE`  in docker-compose.yaml
+- `password` is tha password value, it should be same as `MYSQL_ROOT_PASSWORD` in docker-compose.yaml
+
+```yaml
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:5.7
+    platform: linux/amd64
+    restart: unless-stopped
+    container_name: docker-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: testDB
+    ports:
+      - "3306:3306"
 ```
 
 ---
@@ -49,13 +65,13 @@ $ make docker-up
 Run docker container - docker-mysql!
 docker-compose -f docker-compose.yaml up -d --build
 [+] Running 2/2
- ✔ Network docker-db-sample_default  Created                                                                           0.1s 
- ✔ Container docker-mysql            Started  
+ ✔ Network docker-db-sample_default  Created  
+ ✔ Container docker-mysql            Started 
 ```
 ---
 - Use `make docker-exec` to into the container
 ```bash
-$ make docker-exec                                                   ✔ 
+$ make docker-exec                                                 
 Run docker exec command into container - docker-mysql
 docker exec -it docker-mysql /bin/sh
 ```
@@ -77,12 +93,12 @@ mysql>
 
 - Use `make docker-down` to stop the container
 ```bash
-$ make docker-down                                                   ✔ 
+$ make docker-down 
 Terminate docker container - docker-mysql
 docker-compose -f docker-compose.yaml down
 [+] Running 2/1
- ✔ Container docker-mysql            Removed                                                                           1.7s 
- ✔ Network docker-db-sample_default  Removed                                                                           0.1s 
+ ✔ Container docker-mysql            Removed           
+ ✔ Network docker-db-sample_default  Removed 
 docker system prune
 WARNING! This will remove:
   - all stopped containers

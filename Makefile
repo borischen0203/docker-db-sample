@@ -6,12 +6,12 @@ default:
 .PHONY: docker-up
 docker-up:
 	@echo "Run docker container - ${container}!"
-	docker-compose -f docker-compose.yaml up -d --build
+	docker compose -f docker-compose.yml up -d
 
 .PHONY: docker-down
 docker-down: ## Stop docker containers and clear artefacts.
 	@echo "Terminate docker container - ${container}"
-	docker-compose -f docker-compose.yaml down
+	docker compose -f docker-compose.yml down
 	docker system prune
 
 .PHONY: docker-exec

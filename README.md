@@ -21,11 +21,11 @@ spring.datasource.password=password
 spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
 spring.jpa.hibernate.ddl-auto=update
 ```
-- `localhost:3306`  should be same as `ports` in docker-compose.yaml
-- `testDB` is database name, it should be same as `MYSQL_DATABASE`  in docker-compose.yaml
-- `password` is tha password value, it should be same as `MYSQL_ROOT_PASSWORD` in docker-compose.yaml
+- `localhost:3306`  should be same as `ports` in docker-compose.yml
+- `testDB` is database name, it should be same as `MYSQL_DATABASE`  in docker-compose.yml
+- `password` is tha password value, it should be same as `MYSQL_ROOT_PASSWORD` in docker-compose.yml
 
-```yaml
+```yml
 version: '3.7'
 
 services:
@@ -55,7 +55,7 @@ make docker-up
 ```
 Or
 ```bash
-docker-compose -f docker-compose.yaml up -d --build
+docker compose -f docker-compose.yml up -d --build
 ```
 ---
 ### Run demo:
@@ -63,7 +63,7 @@ docker-compose -f docker-compose.yaml up -d --build
 ```bash
 $ make docker-up
 Run docker container - docker-mysql!
-docker-compose -f docker-compose.yaml up -d --build
+docker compose -f docker-compose.yml up -d --build
 [+] Running 2/2
  ✔ Network docker-db-sample_default  Created  
  ✔ Container docker-mysql            Started 
@@ -77,7 +77,7 @@ docker exec -it docker-mysql /bin/sh
 ```
 Then, you can use below way to into mysql \
 `-u`: means username, we use `root` here \
-`-p`: means user password, same as you set up in `docker-compose.yaml`'s `MYSQL_ROOT_PASSWORD`
+`-p`: means user password, same as you set up in `docker-compose.yml`'s `MYSQL_ROOT_PASSWORD`
 ```
 # mysql -uroot -ppassword
 # mysql: [Warning] Using a password on the command line interface can be insecure.
@@ -95,7 +95,7 @@ mysql>
 ```bash
 $ make docker-down 
 Terminate docker container - docker-mysql
-docker-compose -f docker-compose.yaml down
+docker-compose -f docker-compose.yml down
 [+] Running 2/1
  ✔ Container docker-mysql            Removed           
  ✔ Network docker-db-sample_default  Removed 
@@ -112,7 +112,7 @@ Total reclaimed space: 0B
 ---
 Option:
 You can use `volumes` and `dump.sql`(File location: /docker/mysql/dump.sql) to set up a default table in DB
-```yaml
+```yml
 volumes:
   - "./docker/mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql"
 ```

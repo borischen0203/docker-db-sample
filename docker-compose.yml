@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   mysql:
-    image: mysql:5.7
+    image: mysql:8-debian
     platform: linux/amd64
     restart: unless-stopped
     container_name: docker-mysql
@@ -14,5 +14,5 @@ services:
 #      MYSQL_PASSWORD: password
     ports:
       - "3306:3306"
-#    volumes:
-#      - "./docker/mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql"
+    volumes:
+      - "./docker/mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql"

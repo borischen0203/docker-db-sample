@@ -1,4 +1,4 @@
-container?=docker-mysql
+container?=docker-postgres
 
 default:
 	echo ${container}

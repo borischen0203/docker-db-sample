@@ -2,17 +2,16 @@ version: '3.7'
 
 services:
 
-  mysql:
-    image: mysql:8-debian
+  postgres:
+    image: postgres:13-alpine
     platform: linux/amd64
     restart: unless-stopped
-    container_name: docker-mysql
+    container_name: docker-postgres
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: testDB
-#      MYSQL_USER: user
-#      MYSQL_PASSWORD: password
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: testDB
+      POSTGRES_USER: root
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - "./docker/mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql"
+      - "./docker/postgres/dump.sql:/docker-entrypoint-initdb.d/dump.sql"
